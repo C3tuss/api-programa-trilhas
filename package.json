@@ -8,11 +8,20 @@
     "start": "node run.js",
     "dev": "nodemon run.js"
   },
-  "keywords": ["rest", "api", "backend", "desafio-04", "trilhas-inova"],
-  "author": "Guten (a.k.a StGuten) - Equipe 15 - Trilhas Inova",
+  "keywords": [
+    "rest",
+    "api",
+    "backend",
+    "desafio-04",
+    "trilhas-inova"
+  ],
+  "author": "Guten (a.k.a StGuten)",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mongoose": "^8.4.3",
+    "nodemon": "^3.1.4",
     "sqlite": "^5.1.1"
   }
 }

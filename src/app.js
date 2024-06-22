@@ -1,20 +1,18 @@
-import app from "./configs/express.config.js";
+import express from "express";
+import conectaNaDatabase from "./configs/dbConnection.js";
+import routes from "./routes/index.js"
 
-app.use("/usuarios", (_, res) => {
-    res.status(501).send("Rota não implementada");
+const conexao = await conectaNaDatabase();
+
+conexao.on("error", (erro) => {
+    console.error("erro de conexão", erro);
 });
 
-app.get("/", (_, res) => {
-    res.status(200).send("I'm alive.");
-});
+conexao.once("open", () => {
+    console.log("Conexão com o banco feita com sucesso");
+})
 
-app.get("*", (req, res) => {
-    res.status(404).send("Endpoint não encontrado.");
-});
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send("Erro interno.");
-});
+const app = express();
+routes(app);
 
 export default app;
