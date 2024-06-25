@@ -5,9 +5,12 @@ const usuarioSchema = new mongoose.Schema({
     nome: {type: String, required: true},
     nick: {type: String, required: true},
     email: {type: String, required: true},
-    senha: {type: String, required: true}
-    /*localização 
-    tipo de usuario*/
+    senha: {type: String, required: true},
+    localizacao: {
+        cidade: { type: String },
+        estado: { type: String },
+    },
+    tipoUsuario: { type: String, enum: ['Professor', 'Aluno'], default: 'Aluno' }
 }, {versionKey: false});
 
 const usuario = mongoose.model("usuarios", usuarioSchema);
