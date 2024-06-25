@@ -22,12 +22,20 @@ class UsuarioController {
   };
 
   static async cadastrarUsuario (req, res) {
+    const { nome, nick, email, senha } = req.body;
+
+    // Verificação de campos obrigatórios
+    if (!nome || !nick || !email || !senha) {
+      return res.status(400).json({ message: "Todos os campos são obrigatórios" });
+    }
+
     try {
-      const novoUsuario = await usuario.create(req.body);
-      res.status(201).json({ message: "criado com sucesso", usuario: novoUsuario });
+      const novoUsuario = new usuario({ nome, nick, email, senha });
+      await novoUsuario.save();
+      res.status(201).json({ message: "Usuário criado com sucesso", usuario: novoUsuario });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha ao cadastrar usuário` });
     }
-  };
+  }
 };
 export default UsuarioController;
