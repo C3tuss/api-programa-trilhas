@@ -22,20 +22,48 @@ class UsuarioController {
   };
 
   static async cadastrarUsuario (req, res) {
-    const { nome, nick, email, senha } = req.body;
+    const { nome, nick, email, senha, localizacao, tipoUsuario } = req.body;
 
     // Verificação de campos obrigatórios
-    if (!nome || !nick || !email || !senha) {
+    if (!nome || !nick || !email || !senha || !localizacao || !tipoUsuario) {
       return res.status(400).json({ message: "Todos os campos são obrigatórios" });
     }
+    
+    console.log("Dados recebidos:", req.body);
 
     try {
-      const novoUsuario = new usuario({ nome, nick, email, senha });
+      const novoUsuario = new usuario({ nome, nick, email, senha, localizacao, tipoUsuario });
       await novoUsuario.save();
       res.status(201).json({ message: "Usuário criado com sucesso", usuario: novoUsuario });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha ao cadastrar usuário` });
     }
   }
+
+  static async atualizarUsuario(req, res)
+    {
+        try
+        {
+            const id = req.params.id;
+            await usuario.findByIdAndUpdate(id, req.body);
+            res.status(200).json({message: "usuario atualizado"});
+        }catch(erro){
+            res.status(500).json({message: `${erro.message} - falha na atualização` });
+        }
+    };
+
+    static async excluirUsuario(req, res)
+    {
+        try
+        {
+            const id = req.params.id;
+            await usuario.findByIdAndDelete(id);
+            res.status(200).json({message: "Usuario deletado com sucesso"});
+        }catch(erro){
+            res.status(500).json({message: `${erro.message} - falha ao deletar`})
+        }
+    };
+
 };
+
 export default UsuarioController;
