@@ -32,7 +32,7 @@ class UsuarioController {
     console.log("Dados recebidos:", req.body);
 
     try {
-      const novoUsuario = new usuario({ nome, nick, email, senha, localizacao, tipoUsuario });
+      const novoUsuario = new usuario({ nome, nick, data, email, senha, localizacao, tipoUsuario });
       await novoUsuario.save();
       res.status(201).json({ message: "Usuário criado com sucesso", usuario: novoUsuario });
     } catch (erro) {

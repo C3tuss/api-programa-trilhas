@@ -8,6 +8,7 @@ const usuarioSchema = new mongoose.Schema({
     nick: {type: String, required: true},
     email: {type: String, required: true},
     senha: {type: String, required: true},
+    data: {type: Date, required: true},
     localizacao: {type: localizacaoSchema, required: true},
     tipoUsuario: {type: ocupacaoSchema, required: true}
 
